@@ -38,3 +38,28 @@ function setTheme(mode){
 
 	localStorage.setItem('theme', mode)
 }
+
+$("#contact-form").submit(function(e){
+    e.preventDefault();
+    let FormData = $(this).serializeArray();
+    let moveForward = true;
+    for(var i=0;i<FormData.length;i++){
+        if(FormData[i].value == ''){
+            moveForward = false;
+        }
+    }
+    if(moveForward){
+        $.ajax({
+        url:'https://narsaabg.github.io/portfolio/mail.php',
+            method:'post',
+            data:FormData,
+            success:function(response){
+                console.log(response);
+            }
+        })
+        return;
+    }
+
+    alert('I think you did not form correctly');
+    
+});
